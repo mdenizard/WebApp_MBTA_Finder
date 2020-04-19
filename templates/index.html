@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Amazing app to help you find nearest MBTA station</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title%} 
+Amazing app to help you find nearest MBTA station
+{% endblock %}
+
+{% block body %}
+    <h1>Hello!</h1>
+    <p>Please enter a location in Boston</p>
+    <form action="/nearest" method="POST">
+        <div>
+            <label for="Pname">Place name:</label>
+            <input type="text" name='Pname'>
+            <input type="submit" value="Submit"> 
+        </div>
+    </form>
+{% endblock %}
+

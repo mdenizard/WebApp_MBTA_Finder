@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}  
+Final Project Reflection
+{% endblock %}
+
+{% block body %}
+
+<h3>Project Overview</h3>
+
+<p>My project is a web application that allows the user to find the nearest MBTA station to a specified location in Boston. The application uses both Mapquest and MTBA's API to find the nearest station. Flask was used to turn the finder into a web application. Additionally, Bootstrap was used to create a navigation bar for the web application’s pages.  </p>
+
+<h3>Project Reflection</h3>
+
+<p>Overall, the project was not that difficult given the amount of resources that were available. The template for the project was very helpful in understanding the layout of the project. The project was already divided into manageable parts, and there were direct links to the information needed to complete each part.</p>
+
+<p>By testing often, I was able to troubleshoot many of the issues I was having early on. For example, I was not receiving data from MTBA's API because I was using Babson College as my location. It wasn't until I reread the instructions that I realized that the location has to be in Boston. Additionally, I had trouble retrieving data from the form because I wasn't understanding Flask's documentation. Thankfully after watching YouTube videos, I was able to understand how to retrieve data from the form. Moving forward, I will continue to learn more about web development so that I can improve my own personal website.</p>
+
+{% endblock %}

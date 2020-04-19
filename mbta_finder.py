@@ -8,8 +8,9 @@ MAPQUEST_BASE_URL = "http://www.mapquestapi.com/geocoding/v1/address"
 MBTA_BASE_URL = "https://api-v3.mbta.com/stops"
 
 # Your API KEYS (you need to use your own keys - very long random characters)
-MAPQUEST_API_KEY = ""
-MBTA_API_KEY = ""
+MAPQUEST_API_KEY = "AgTQiPhbVo2fQPxSgeR02F7NzBsTs6Bh"
+MBTA_API_KEY = "f7a4bf886d1c45fc85891a55f40ff3c1"
+
 
 
 # A little bit of scaffolding if you want to use it
@@ -19,8 +20,9 @@ def get_json(url):
     a Python JSON object containing the response to that request.
     We did similar thing in the previous assignment.
     """
-
-    response_data = ...
+    f = urllib.request.urlopen(url)
+    response_text = f.read().decode("utf-8")
+    response_data = json.loads(response_text)
     return response_data
 
 
@@ -33,11 +35,11 @@ def get_lat_long(place_name):
     """
     place = place_name.replace(' ', '%20')
     url = f'{MAPQUEST_BASE_URL}?key={MAPQUEST_API_KEY}&location={place}'
-    # print(url) # uncomment to test the url in browser
+    # print(url) 
     place_json = get_json(url)
     # pprint(place_json)
-    lat = place_json[...][...] # modify this so you get the correct latitude
-    lon = place_json[...][...] # modify this so you get the correct longitude
+    lat = place_json["results"][0]["locations"][0]["latLng"]["lat"] 
+    lon = place_json["results"][0]["locations"][0]["latLng"]["lng"] 
 
     return lat, lon
 
@@ -51,14 +53,20 @@ def get_nearest_station(latitude, longitude):
     """
 
     url = f'{MBTA_BASE_URL}?api_key={MBTA_API_KEY}&filter[latitude]={latitude}&filter[longitude]={longitude}&sort=distance'
-    # print(url) # uncomment to test the url in browser
+    # print(url) 
     station_json = get_json(url)
-    # pprint(station_json) # uncomment to see the json data
-    station_name = station_json[...][...] # modify this so you get the correct station name
-    # print(station_name) # uncomment to check it
+    # pprint(station_json) 
+    station_name = station_json['data'][0]['attributes']['name'] 
+    # print(station_name) 
 
     # try to find out where the wheelchair_boarding information is
-    wheelchair_boarding = ...
+    wheelchair_boarding = station_json['data'][0]['attributes']['wheelchair_boarding']
+    if (wheelchair_boarding == 0):
+        wheelchair_boarding = "No Information"
+    elif (wheelchair_boarding == 1): 
+        wheelchair_boarding = "Accessible" 
+    else: 
+        wheelchair_boarding = "Inaccessible"
 
     return station_name, wheelchair_boarding
 
